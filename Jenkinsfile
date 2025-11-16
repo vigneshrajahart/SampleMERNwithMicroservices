@@ -24,7 +24,7 @@ pipeline {
         withCredentials([usernamePassword(
           credentialsId: AWS_CREDS_ID,
           usernameVariable: 'AWS_ACCESS_KEY_ID',
-          passwordVariable: 'AWS_SECRET_ACCESS_KE'
+          passwordVariable: 'AWS_SECRET_ACCESS_KEY'
         )]) {
           sh '''
             echo "Checking STS identity..."
