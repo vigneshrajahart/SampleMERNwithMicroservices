@@ -1,7 +1,6 @@
 pipeline {
-    agent any
-   // or 'any' or your Jenkins Cloud agent label
-
+    agent any //any agent bwill take all labels
+  
   environment {
     AWS_REGION  = 'ca-central-1'
     AWS_ACCOUNT = '975050024946'
