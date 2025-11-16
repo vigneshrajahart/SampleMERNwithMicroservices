@@ -1,5 +1,6 @@
 pipeline {
-  agent { label 'docker' }   // or 'any' or your Jenkins Cloud agent label
+    agent any
+   // or 'any' or your Jenkins Cloud agent label
 
   environment {
     AWS_REGION  = 'ca-central-1'
