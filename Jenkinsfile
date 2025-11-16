@@ -23,28 +23,26 @@ pipeline {
       steps {
         withCredentials([usernamePassword(
           credentialsId: AWS_CREDS_ID,
-          usernameVariable: 'AWS_KEY',
-          passwordVariable: 'AWS_SECRET'
+          usernameVariable: 'AWS_ACCESS_KEY_ID',
+          passwordVariable: 'AWS_SECRET_ACCESS_KE'
         )]) {
           sh '''
-            export AWS_ACCESS_KEY_ID=$AWS_KEY
-            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET
-            export AWS_DEFAULT_REGION='${AWS_REGION}'
-
-            aws sts get-caller-identity
+            echo "Checking STS identity..."
+        aws sts get-caller-identity --region ${AWS_REGION}
           '''
         }
       }
     }
 
-    stage('Login to ECR') {
-      steps {
-        sh '''
-          aws ecr get-login-password --region ${AWS_REGION} \
-          | docker login --username AWS --password-stdin ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
-        '''
-      }
-    }
+ stage('Login to ECR') {
+  steps {
+    sh '''
+      aws ecr get-login-password --region ${AWS_REGION} \
+      | docker login --username AWS --password-stdin ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
+    '''
+  }
+}
+
 
     stage('Build & Push Backend') {
       steps {
